@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>استعلام حساب فري فاير</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      direction: rtl;
+      color: #fff;
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .form-container {
+      background: rgba(0,0,0,0.6);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00ffe0;
+      text-align: center;
+      width: 300px;
+    }
+    .form-container h2 {
+      margin-bottom: 20px;
+      color: #00ffe0;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 16px;
+      box-shadow: 0 0 5px #00ffe0 inset;
+      transition: box-shadow 0.3s;
+    }
+    input:focus, select:focus {
+      box-shadow: 0 0 10px #00ffe0 inset;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #00ffe0;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      color: #000;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background: #9c27b0;
+      color: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #9c27b0;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>🔍 استعلام حساب فري فاير</h2>
+    <form action="/result" method="get">
+      <input type="text" name="uid" placeholder="أدخل UID" required>
+      <select name="region" required>
+        <option value="">اختر المنطقة</option>
+        <option value="me">الشرق الأوسط (ME)</option>
+        <option value="sg">سنغافورة (SG)</option>
+        <option value="br">البرازيل (BR)</option>
+        <option value="eu">أوروبا (EU)</option>
+        <option value="us">أمريكا (US)</option>
+      </select>
+      <button type="submit">✨ جلب البيانات</button>
+    </form>
+  </div>
+</body>
+</html>
