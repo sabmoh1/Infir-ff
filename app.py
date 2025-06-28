@@ -15,13 +15,19 @@ def get_player_info(uid, region):
         return {"error": f"حدث خطأ أثناء الاتصال: {e}"}
 
 def unix_to_datetime(unix_timestamp):
-    return datetime.utcfromtimestamp(int(unix_timestamp)).strftime('%Y-%m-%d %H:%M:%S')
+    if unix_timestamp and unix_timestamp != "0":
+        return datetime.utcfromtimestamp(int(unix_timestamp)).strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        return "غير متوفر"
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        uid = request.form.get("uid").strip()
-        region = request.form.get("region").strip().upper()
+        uid = request.form.get("uid", "").strip()
+        region = request.form.get("region", "").strip().upper()
+        if not uid or not region:
+            return render_template("result.html", uid=uid, region=region, data=None, error="يجب إدخال جميع الحقول.")
+
         raw_data = get_player_info(uid, region)
 
         if "player_info" not in raw_data:
@@ -74,7 +80,5 @@ def index():
         }
 
         return render_template("result.html", uid=uid, region=region, data=organized_data, error=None)
-    return render_template("index.html")
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    return render_template("index.html")
