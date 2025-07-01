@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 import requests
-import json
 from datetime import datetime
 
 app = Flask(__name__)
@@ -41,6 +40,9 @@ def index():
         profile = info.get("profileInfo", {})
         clan = info.get("clanBasicInfo", {})
 
+        # رابط صورة اللباس الجديدة
+        outfit_image_url = f"https://aditya-outfit-v11op.onrender.com/outfit-image?uid={uid}&region={region}"
+
         organized_data = {
             # Basic Info
             "nickname": basic.get("nickname", "غير متوفر"),
@@ -76,9 +78,15 @@ def index():
             # Clan Info
             "clanName": clan.get("name", "غير متوفر"),
             "clanId": clan.get("clanId", "غير متوفر"),
-            "clanRole": clan.get("role", "غير متوفر")
+            "clanRole": clan.get("role", "غير متوفر"),
+
+            # Outfit Image
+            "outfit_image_url": outfit_image_url
         }
 
         return render_template("result.html", uid=uid, region=region, data=organized_data, error=None)
 
     return render_template("index.html")
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
