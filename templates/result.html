@@ -2,89 +2,185 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>نتيجة الحساب</title>
+  <title>نتيجة البحث</title>
   <style>
     body {
-      background: #121212;
-      color: #fff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding: 20px;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
       text-align: center;
+      padding-top: 30px;
       direction: rtl;
+      color: #fff;
+      animation: fadeIn 1s ease-in;
     }
-    h1 {
-      color: #00ffe0;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
-    .info {
-      margin: 20px auto;
-      background: #1e1e1e;
+    .data {
+      background: rgba(0,0,0,0.6);
+      padding: 25px;
+      display: inline-block;
       border-radius: 10px;
-      padding: 20px;
-      max-width: 600px;
-      box-shadow: 0 0 10px #00ffe0;
-    }
-    img {
-      max-width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #00ffe0;
-    }
-    details {
-      background: rgba(255,255,255,0.05);
-      border-radius: 8px;
-      padding: 10px;
-      margin-top: 15px;
+      width: 90%;
+      max-width: 750px;
+      box-shadow: 0 0 20px #00ffe0;
       text-align: right;
+      animation: fadeIn 1s ease-in;
     }
-    summary {
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 18px;
+    h2 {
+      color: #00ffe0;
+      margin-bottom: 20px;
+    }
+    h3 {
+      border-bottom: 1px solid #555;
+      padding-bottom: 5px;
+      margin-top: 30px;
+      margin-bottom: 10px;
       color: #9c27b0;
     }
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 10px 0 0;
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid #444;
+      border-radius: 6px;
+      padding: 10px 15px;
+      margin: 8px 0;
+      font-size: 15px;
+      animation: fadeIn 0.5s ease;
     }
-    li {
-      padding: 5px;
-      margin-bottom: 5px;
-      background: rgba(255,255,255,0.05);
+    .label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .value {
+      font-weight: bold;
+      color: #fff;
+    }
+    .btn {
+      background: #00ffe0;
+      color: #000;
+      padding: 5px 10px;
       border-radius: 4px;
+      text-decoration: none;
+      font-size: 13px;
+      transition: all 0.3s ease;
+      margin-right: 5px;
+      margin-top: 5px;
+    }
+    .btn:hover {
+      background: #9c27b0;
+      color: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #9c27b0;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #00ffe0;
+      font-weight: bold;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    .outfit-image {
+      display: block;
+      margin: 15px auto;
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00ffe0;
     }
   </style>
 </head>
 <body>
-  <h1>🔍 نتيجة الحساب</h1>
-
   {% if error %}
-    <p style="color:red;">{{ error }}</p>
+    <h2>❌ {{ error }}</h2>
   {% else %}
-    <div class="info">
-      <p>👤 <strong>الاسم:</strong> {{ data.nickname }}</p>
-      <p>🆔 <strong>الحساب:</strong> {{ data.accountId }}</p>
-      <p>🌍 <strong>المنطقة:</strong> {{ data.region }}</p>
-      <p>⭐ <strong>المستوى:</strong> {{ data.level }}</p>
-      <p>👍 <strong>الإعجابات:</strong> {{ data.liked }}</p>
-      <p>🏅 <strong>النقاط:</strong> {{ data.rankingPoints }}</p>
-      <p>🥇 <strong>الرتبة:</strong> {{ data.rank }}</p>
-      <p>🕒 <strong>تاريخ الإنشاء:</strong> {{ data.createAt }}</p>
-      <p>⏰ <strong>آخر دخول:</strong> {{ data.lastLoginAt }}</p>
+    <h2>✅ تم جلب البيانات بنجاح</h2>
+    <div class="data">
 
-      <h2 style="color:#00ffe0; margin-top:30px;">🧥 اللباس</h2>
+      <h3>👤 معلومات الحساب الأساسية</h3>
+      <div class="item"><span class="label">👤 الاسم:</span><span class="value">{{ data.nickname }}</span></div>
+      <div class="item"><span class="label">🆔 رقم الحساب:</span><span class="value">{{ data.accountId }}</span></div>
+      <div class="item"><span class="label">🌎 السيرفر:</span><span class="value">{{ data.region }}</span></div>
+      <div class="item"><span class="label">🏅 المستوى:</span><span class="value">{{ data.level }}</span></div>
+      <div class="item"><span class="label">❤️ الإعجابات:</span><span class="value">{{ data.liked }}</span></div>
+      <div class="item"><span class="label">🛡️ الرتبة:</span><span class="value">{{ data.rank }}</span></div>
+      <div class="item"><span class="label">🪙 النقاط الترتيبية:</span><span class="value">{{ data.rankingPoints }}</span></div>
+      <div class="item"><span class="label">📅 تاريخ الإنشاء:</span><span class="value">{{ data.createAt }}</span></div>
+      <div class="item"><span class="label">⏰ آخر دخول:</span><span class="value">{{ data.lastLoginAt }}</span></div>
+
+      <h3>🎭 معلومات البروفايل</h3>
+      <div class="item">
+        <span class="label">🎭 Avatar:</span>
+        <span class="value">ID {{ data.avatarId }}</span>
+        {% if data.avatarId != "غير متوفر" %}
+        <a class="btn" href="https://0xme.github.io/ItemID2/?mode=2&q={{ data.avatarId }}" target="_blank">عرض الصورة 🔍</a>
+        {% endif %}
+      </div>
+      <div class="item">
+        <span class="label">🏷️ Banner:</span>
+        <span class="value">ID {{ data.bannerId }}</span>
+        {% if data.bannerId != "غير متوفر" %}
+        <a class="btn" href="https://0xme.github.io/ItemID2/?mode=2&q={{ data.bannerId }}" target="_blank">عرض الصورة 🔍</a>
+        {% endif %}
+      </div>
+      <div class="item">
+        <span class="label">🎖️ Badge:</span>
+        <span class="value">ID {{ data.badgeId }}</span>
+        {% if data.badgeId != "غير متوفر" %}
+        <a class="btn" href="https://0xme.github.io/ItemID2/?mode=2&q={{ data.badgeId }}" target="_blank">عرض الصورة 🔍</a>
+        {% endif %}
+      </div>
+      <div class="item">
+        <span class="label">🖼️ HeadPic:</span>
+        <span class="value">ID {{ data.headPic }}</span>
+        {% if data.headPic != "غير متوفر" %}
+        <a class="btn" href="https://0xme.github.io/ItemID2/?mode=2&q={{ data.headPic }}" target="_blank">عرض الصورة 🔍</a>
+        {% endif %}
+      </div>
+
+      <h3>👕 الملابس</h3>
       {% if data.outfit_image_url %}
-        <img src="{{ data.outfit_image_url }}" alt="صورة اللباس">
+        <img class="outfit-image" src="{{ data.outfit_image_url }}" alt="صورة اللباس">
       {% endif %}
 
-      <details>
-        <summary>📦 عرض الأكواد</summary>
-        <ul>
-          {% for cloth in data.clothes %}
-            <li>🧩 {{ cloth }}</li>
-          {% endfor %}
-        </ul>
-      </details>
+      {% if data.clothes %}
+        {% for cloth_id in data.clothes %}
+        <div class="item">
+          <span class="label">👕 قطعة لباس:</span>
+          <span class="value">ID {{ cloth_id }}</span>
+          <a class="btn" href="https://0xme.github.io/ItemID2/?mode=2&q={{ cloth_id }}" target="_blank">عرض الصورة 🔍</a>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="item"><span class="label">👕 الملابس:</span><span class="value">لا يوجد</span></div>
+      {% endif %}
+
+      <div class="item"><span class="label">🧩 المهارات المجهزة:</span><span class="value">{{ data.equipedSkills | join(', ') if data.equipedSkills else 'لا يوجد' }}</span></div>
+      <div class="item"><span class="label">✅ مختار؟</span><span class="value">{{ data.isSelected }}</span></div>
+      <div class="item"><span class="label">🌟 Awaken؟</span><span class="value">{{ data.isSelectedAwaken }}</span></div>
+
+      <h3>🐾 معلومات البت</h3>
+      <div class="item"><span class="label">🐾 اسم البت:</span><span class="value">{{ data.petName }}</span></div>
+      <div class="item"><span class="label">🎚️ مستوى البت:</span><span class="value">{{ data.petLevel }}</span></div>
+      <div class="item"><span class="label">✨ تجربة البت:</span><span class="value">{{ data.petExp }}</span></div>
+
+      <h3>🏰 معلومات الكلان</h3>
+      <div class="item"><span class="label">🏰 اسم الكلان:</span><span class="value">{{ data.clanName }}</span></div>
+      <div class="item"><span class="label">🆔 رقم الكلان:</span><span class="value">{{ data.clanId }}</span></div>
+      <div class="item"><span class="label">🛡️ دورك في الكلان:</span><span class="value">{{ data.clanRole }}</span></div>
+
+      <h3>🌐 معلومات اجتماعية</h3>
+      <div class="item"><span class="label">🌐 اللغة:</span><span class="value">{{ data.language }}</span></div>
+      <div class="item"><span class="label">🚻 الجنس:</span><span class="value">{{ data.gender }}</span></div>
+      <div class="item"><span class="label">✍️ التوقيع:</span><span class="value">{{ data.signature }}</span></div>
     </div>
   {% endif %}
+  <a class="back-link" href="/">🔙 العودة للبحث</a>
 </body>
-             </html>
+</html>
